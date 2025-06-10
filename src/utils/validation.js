@@ -30,9 +30,9 @@ export function isValidCnpj(cnpj) {
   if (!cnpj || cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
 
   const validateDigits = (length) => {
-    let size = length - 2;
-    let numbers = cnpj.substring(0, size);
-    let digits = cnpj.substring(size);
+    const size = length - 2;
+    const numbers = cnpj.substring(0, size);
+    const digits = cnpj.substring(size);
     let sum = 0;
     let pos = length - 7;
 
@@ -41,7 +41,7 @@ export function isValidCnpj(cnpj) {
       if (pos < 2) pos = 9;
     }
 
-    let result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    const result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
     return result === parseInt(digits.charAt(length - size - 1));
   };
 

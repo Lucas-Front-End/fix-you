@@ -1,5 +1,5 @@
 // src/components/inputText/styles.js
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -8,8 +8,7 @@ export const Container = styled.div`
 
 export const Label = styled.label`
   font-size: 14px;
-  color: ${({ status, theme }) =>
-    status === "error" ? theme.colors.red : theme.colors.primary};
+  color: ${({ status, theme }) => (status === 'error' ? theme.colors.red : theme.colors.primary)};
   margin: 24px 0 4px 0;
 `;
 
@@ -23,15 +22,12 @@ export const StyledInput = styled.input`
   padding: 12px 36px 12px 12px;
   background-color: ${({ theme }) => theme.colors.background};
   border: none;
-  border-bottom: 1px solid
-    ${({ status, theme }) =>
-      status === "error" ? theme.colors.red : theme.colors.primary};
+  border-bottom: 1px solid ${({ status, theme }) => (status === 'error' ? theme.colors.red : theme.colors.primary)};
   font-size: 16px;
 
   &:focus {
     outline: none;
-    border-bottom-color: ${({ status, theme }) =>
-      status === "error" ? theme.colors.red : theme.colors.primary};
+    border-bottom-color: ${({ status, theme }) => (status === 'error' ? theme.colors.red : theme.colors.primary)};
   }
 
   &::placeholder {
@@ -51,8 +47,10 @@ export const ToggleButton = styled.button`
 `;
 
 export const Icon = styled.span`
-  font-family: "Material Symbols Outlined";
-  font-variation-settings: "FILL" 0, "wght" 400;
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400;
   font-size: 20px;
   color: #555;
 `;

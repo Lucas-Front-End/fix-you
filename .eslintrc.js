@@ -10,7 +10,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:import/react',
+    'plugin:import/recommended',
     'airbnb',
     'plugin:prettier/recommended',
   ],

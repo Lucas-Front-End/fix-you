@@ -1,12 +1,12 @@
 // src/screens/Login/Login.jsx
-import React from "react";
-import { useForm, Controller } from "react-hook-form";
-import * as S from "./styles";
-import InputText from "../../../components/inpuText";
-import logoLogin from "../../../assets/images/logos/logoLogin.svg";
-import SimpleButton from "../../../components/simpleButton";
-import { useTheme } from "styled-components";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { useTheme } from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import * as S from './styles';
+import InputText from '../../../components/inpuText';
+import logoLogin from '../../../assets/images/logos/logoLogin.svg';
+import SimpleButton from '../../../components/simpleButton';
 
 export default function Login() {
   const {
@@ -14,11 +14,11 @@ export default function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    defaultValues: { email: "", senha: "" },
+    defaultValues: { email: '', senha: '' },
   });
 
   const onSubmit = (data) => {
-    console.log("Dados do formulário:", data);
+    console.log('Dados do formulário:', data);
   };
 
   const theme = useTheme();
@@ -35,9 +35,8 @@ export default function Login() {
               name="email"
               control={control}
               rules={{
-                required: "E-mail é obrigatório",
-                validate: (value) =>
-                  /\S+@\S+\.\S+/.test(value) || "E-mail inválido",
+                required: 'E-mail é obrigatório',
+                validate: (value) => /\S+@\S+\.\S+/.test(value) || 'E-mail inválido',
               }}
               render={({ field: { value, onChange, onBlur } }) => (
                 <InputText
@@ -47,7 +46,7 @@ export default function Login() {
                   value={value}
                   onChange={(text) => onChange(text)}
                   onBlur={onBlur}
-                  status={errors.email ? "error" : "default"}
+                  status={errors.email ? 'error' : 'default'}
                 />
               )}
             />
@@ -56,7 +55,7 @@ export default function Login() {
             <Controller
               name="senha"
               control={control}
-              rules={{ required: "Senha é obrigatória" }}
+              rules={{ required: 'Senha é obrigatória' }}
               render={({ field: { value, onChange, onBlur } }) => (
                 <InputText
                   label="Senha"
@@ -65,15 +64,13 @@ export default function Login() {
                   value={value}
                   onChange={(text) => onChange(text)}
                   onBlur={onBlur}
-                  status={errors.senha ? "error" : "default"}
+                  status={errors.senha ? 'error' : 'default'}
                 />
               )}
             />
             {errors.senha && <S.ErrorText>{errors.senha.message}</S.ErrorText>}
 
-            <S.ForgotPassword onClick={() => navigate("/passwordResetRequest")}>
-              Esqueci a senha
-            </S.ForgotPassword>
+            <S.ForgotPassword onClick={() => navigate('/passwordResetRequest')}>Esqueci a senha</S.ForgotPassword>
 
             <SimpleButton
               width="411px"

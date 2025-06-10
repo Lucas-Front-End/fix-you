@@ -1,6 +1,6 @@
 // src/components/SimpleButton/index.jsx
-import React from "react"; // Nova linha
-import * as S from "./styles";
+import React from 'react'; // Nova linha
+import * as S from './styles';
 
 export default function SimpleButton({
   text,
@@ -35,12 +35,7 @@ export default function SimpleButton({
       $fontWeight={fontWeight}
       $borderColor={borderColor}
     >
-      <S.ButtonText
-        $fontColor={fontColor}
-        $fontSize={fontSize}
-        $fontWeight={fontWeight}
-        $disabled={disabled}
-      >
+      <S.ButtonText $fontColor={fontColor} $fontSize={fontSize} $fontWeight={fontWeight} $disabled={disabled}>
         {text}
       </S.ButtonText>
     </S.CustomButton>

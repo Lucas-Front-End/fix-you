@@ -47,6 +47,7 @@ export const ForgotPassword = styled.div`
   align-self: flex-end;
   margin: 32px 0 24px 0;
   text-decoration: underline;
+  text-underline-offset: 4px;
   cursor: pointer;
 `;
 

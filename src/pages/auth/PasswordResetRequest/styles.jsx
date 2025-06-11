@@ -54,10 +54,10 @@ export const ErrorText = styled.span`
 export const ForgotPassword = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.primary};
-  text-decoration: none;
   align-self: flex-end;
   margin: 32px 0;
   text-decoration: underline;
+  text-underline-offset: 4px;
 `;
 
 export const RightPanel = styled.div`

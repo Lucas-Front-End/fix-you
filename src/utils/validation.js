@@ -54,3 +54,27 @@ export function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email.toLowerCase());
 }
+
+export function isValidDateBR(dateStr) {
+  if (!dateStr) return false;
+  const [day, month, year] = dateStr.split('/').map(Number);
+
+  if (!day || !month || !year || dateStr.length !== 10) return false;
+
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+}
+
+export function isOfMinAge(dateStr, minAge) {
+  const [day, month, year] = dateStr.split('/').map(Number);
+  const birthDate = new Date(year, month - 1, day);
+  const today = new Date();
+
+  const age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+  const dayDiff = today.getDate() - birthDate.getDate();
+
+  const isOldEnough = age > minAge || (age === minAge && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)));
+
+  return isOldEnough;
+}

@@ -46,6 +46,10 @@ export const StyledInput = styled.input`
     vertical-align: middle;
     color: #9e9e9e;
   }
+  &:disabled {
+    background: #eeeeee;
+    border-color: #bdbdbd;
+  }
 `;
 
 export const StyledSelect = styled.select`

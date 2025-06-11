@@ -15,6 +15,7 @@ export default function InputCustom({
   options = [],
   disabled = false,
   margin,
+  contrato,
   ...rest
 }) {
   const [focused, setFocused] = useState(false);
@@ -37,16 +38,22 @@ export default function InputCustom({
     return value;
   };
 
+  const validationRules = {
+    validate: (value) => {
+      if (disabled || contrato === 'clt') return true; // <- pára aqui se for CLT
+      if (!value) return 'Obrigatório';
+      if (validators[type]) return validators[type](value);
+      return true;
+    },
+  };
+
   return (
     <S.Container margin={margin}>
       <S.Label hasError={!!errorMessage}>{label}</S.Label>
       <Controller
         control={control}
         name={name}
-        rules={{
-          required: 'Obrigatório',
-          validate: validators[type],
-        }}
+        rules={validationRules}
         render={({ field: { onChange, onBlur, value } }) =>
           type === 'select' ? (
             <S.StyledSelect

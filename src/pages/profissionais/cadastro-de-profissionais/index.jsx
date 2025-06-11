@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import BaseLayout from '../../../layouts/index';
 import InputCustom from '../../../components/InputCustom';
@@ -10,7 +11,20 @@ export default function Cadastro() {
     control,
     handleSubmit,
     formState: { errors },
+    watch,
+    setValue,
+    clearErrors,
   } = useForm();
+
+  const contrato = watch('contrato');
+
+  useEffect(() => {
+    if (contrato === 'clt') {
+      setValue('razaoSocial', '');
+      setValue('cnpj', '');
+      clearErrors(['razaoSocial', 'cnpj']);
+    }
+  }, [contrato, setValue, clearErrors]);
 
   const onSubmit = (data) => {
     console.log('Form Data:', data);
@@ -84,6 +98,31 @@ export default function Cadastro() {
                 errorMessage={errors.dataAdmissao?.message}
               />
             </S.Grid>
+            {['clt', 'pj'].includes(contrato) && (
+              <S.Grid>
+                <div style={{ gridColumn: 'span 2' }}>
+                  <InputCustom
+                    name="razaoSocial"
+                    label="Razão Social"
+                    placeholder={contrato === 'clt' ? 'Não se aplica' : 'Digite a razão social'}
+                    control={control}
+                    contrato={contrato}
+                    disabled={contrato === 'clt'}
+                    errorMessage={errors.razaoSocial?.message}
+                  />
+                </div>
+                <InputCustom
+                  name="cnpj"
+                  label="CNPJ"
+                  placeholder={contrato === 'clt' ? 'Não se aplica' : 'Digite o CNPJ'}
+                  type="cnpj"
+                  control={control}
+                  contrato={contrato}
+                  disabled={contrato === 'clt'}
+                  errorMessage={errors.cnpj?.message}
+                />
+              </S.Grid>
+            )}
             <CheckboxCustom
               name="perfis"
               label="Perfil de permissões"

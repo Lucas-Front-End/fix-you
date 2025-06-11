@@ -27,26 +27,26 @@ export function isValidCpf(rawCpf) {
 export function isValidCnpj(rawCnpj) {
   const cnpj = rawCnpj.replace(/[^\d]+/g, '');
 
-  if (!cnpj || cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
+  if (!cnpj || cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
 
-  const validateDigits = (length) => {
-    const size = length - 2;
-    const numbers = cnpj.substring(0, size);
-    const digits = cnpj.substring(size);
+  const calcCheckDigit = (base) => {
     let sum = 0;
-    let pos = length - 7;
+    let factor = base.length === 12 ? 5 : 6;
 
-    for (let i = size; i >= 1; i -= 1) {
-      sum += parseInt(numbers.charAt(size - i), 10) * pos;
-      pos -= 1;
-      if (pos < 2) pos = 9;
+    for (let i = 0; i < base.length; i += 1) {
+      sum += parseInt(base[i], 10) * factor;
+      factor = factor === 2 ? 9 : factor - 1;
     }
 
-    const result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
-    return result === parseInt(digits.charAt(length - size - 1), 10);
+    const remainder = sum % 11;
+    return remainder < 2 ? 0 : 11 - remainder;
   };
 
-  return validateDigits(13) && validateDigits(14);
+  const baseCnpj = cnpj.slice(0, 12);
+  const firstCheckDigit = calcCheckDigit(baseCnpj);
+  const secondCheckDigit = calcCheckDigit(baseCnpj + firstCheckDigit);
+
+  return parseInt(cnpj[12], 10) === firstCheckDigit && parseInt(cnpj[13], 10) === secondCheckDigit;
 }
 
 export function isValidEmail(email) {

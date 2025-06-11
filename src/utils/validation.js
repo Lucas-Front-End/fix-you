@@ -1,5 +1,5 @@
-export function isValidCpf(rawCpf) {
-  const cpf = rawCpf.replace(/[^\d]+/g, '');
+export function isValidCpf(cpfParam) {
+  const cpf = cpfParam.replace(/[^\d]+/g, '');
 
   if (!cpf || cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) return false;
 
@@ -24,29 +24,29 @@ export function isValidCpf(rawCpf) {
   return true;
 }
 
-export function isValidCnpj(rawCnpj) {
-  const cnpj = rawCnpj.replace(/[^\d]+/g, '');
+export function isValidCnpj(cnpjParam) {
+  const cnpj = cnpjParam.replace(/[^\d]+/g, '');
 
-  if (!cnpj || cnpj.length !== 14 || /^(\d)\1+$/.test(cnpj)) return false;
+  if (!cnpj || cnpj.length !== 14 || /^(\d)\1{13}$/.test(cnpj)) return false;
 
-  const calcCheckDigit = (base) => {
+  const validateDigits = (length) => {
+    const size = length - 2;
+    const numbers = cnpj.substring(0, size);
+    const digits = cnpj.substring(size);
     let sum = 0;
-    let factor = base.length === 12 ? 5 : 6;
+    let pos = length - 7;
 
-    for (let i = 0; i < base.length; i += 1) {
-      sum += parseInt(base[i], 10) * factor;
-      factor = factor === 2 ? 9 : factor - 1;
+    for (let i = size; i >= 1; i -= 1) {
+      sum += parseInt(numbers.charAt(size - i), 10) * pos;
+      pos -= 1;
+      if (pos < 2) pos = 9;
     }
 
-    const remainder = sum % 11;
-    return remainder < 2 ? 0 : 11 - remainder;
+    const result = sum % 11 < 2 ? 0 : 11 - (sum % 11);
+    return result === parseInt(digits.charAt(length - size - 1), 10);
   };
 
-  const baseCnpj = cnpj.slice(0, 12);
-  const firstCheckDigit = calcCheckDigit(baseCnpj);
-  const secondCheckDigit = calcCheckDigit(baseCnpj + firstCheckDigit);
-
-  return parseInt(cnpj[12], 10) === firstCheckDigit && parseInt(cnpj[13], 10) === secondCheckDigit;
+  return validateDigits(13) && validateDigits(14);
 }
 
 export function isValidEmail(email) {
@@ -56,14 +56,27 @@ export function isValidEmail(email) {
   return regex.test(email.toLowerCase());
 }
 
-export function isValidDateBR(dateStr) {
-  if (!dateStr) return false;
-  const [day, month, year] = dateStr.split('/').map((num) => parseInt(num, 10));
+export function isValidCode(code) {
+  if (!code) return false;
 
-  if (!day || !month || !year || dateStr.length !== 10) return false;
+  const regex = /^[0-9]{4}$/;
+  return regex.test(code);
+}
 
-  const date = new Date(year, month - 1, day);
-  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+export function passwordLengthValid(password) {
+  return password.length >= 8;
+}
+
+export function passwordUppercaseValid(password) {
+  return /[A-Z]/.test(password);
+}
+
+export function passwordLowercaseValid(password) {
+  return /[a-z]/.test(password);
+}
+
+export function passwordSpecialCharValid(password) {
+  return /[^A-Za-z0-9]/.test(password);
 }
 
 export function isOfMinAge(dateStr, minAge) {
@@ -76,4 +89,14 @@ export function isOfMinAge(dateStr, minAge) {
   const dayDiff = today.getDate() - birthDate.getDate();
 
   return age > minAge || (age === minAge && (monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)));
+}
+
+export function isValidDateBR(dateStr) {
+  if (!dateStr) return false;
+  const [day, month, year] = dateStr.split('/').map((num) => parseInt(num, 10));
+
+  if (!day || !month || !year || dateStr.length !== 10) return false;
+
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
 }

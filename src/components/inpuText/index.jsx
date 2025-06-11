@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import 'material-symbols/outlined.css';
 import { formatCPF, formatCNPJ } from '../../utils/masks';
-import { isValidCpf, isValidCnpj, isValidEmail } from '../../utils/validation';
+import { isValidCpf, isValidCnpj, isValidEmail, isValidCode } from '../../utils/validation';
 import * as S from './styles';
 
 export default function InputText({
@@ -59,13 +59,24 @@ export default function InputText({
 
   const handleBlur = () => {
     if (validateType === 'cpf' && !isValidCpf(internalValue)) {
-      console.warn('CPF inválido');
+      if (propOnChange) {
+        propOnChange(internalValue, { error: 'CPF inválido' });
+      }
     }
     if (validateType === 'cnpj' && !isValidCnpj(internalValue)) {
-      console.warn('CNPJ inválido');
+      if (propOnChange) {
+        propOnChange(internalValue, { error: 'CNPJ inválido' });
+      }
     }
     if (validateType === 'email' && !isValidEmail(internalValue)) {
-      console.warn('Email inválido');
+      if (propOnChange) {
+        propOnChange(internalValue, { error: 'Email inválido' });
+      }
+    }
+    if (validateType === 'code' && !isValidCode(internalValue)) {
+      if (propOnChange) {
+        propOnChange(internalValue, { error: 'Código inválido' });
+      }
     }
   };
 
@@ -99,7 +110,7 @@ InputText.propTypes = {
   label: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   width: PropTypes.string,
-  type: PropTypes.oneOf(['text', 'email', 'password']),
+  type: PropTypes.oneOf(['text', 'email', 'password', 'code']),
   maskType: PropTypes.oneOf(['cpf', 'cnpj', null]),
   validateType: PropTypes.oneOf(['cpf', 'cnpj', 'email', null]),
   value: PropTypes.string,
@@ -114,6 +125,6 @@ InputText.defaultProps = {
   maskType: null,
   validateType: null,
   value: '',
-  onChange: null,
+  onChange: undefined,
   status: 'default',
 };

@@ -4,6 +4,8 @@ import Login from '../pages/auth/login';
 import PasswordResetRequest from '../pages/auth/PasswordResetRequest';
 import Profissionais from '../pages/profissionais';
 import Cadastro from '../pages/profissionais/cadastro-de-profissionais';
+import CodeValidationRequest from '../pages/auth/codeValidationRequest';
+import NewPassword from '../pages/auth/NewPassword'; // descomente se tiver página de nova senha
 // import NotFound from '../pages/NotFound'; // descomente se tiver página de 404
 
 export default function AppRoutes() {
@@ -13,6 +15,8 @@ export default function AppRoutes() {
       <Route path="/passwordResetRequest" element={<PasswordResetRequest />} />
       <Route path="/profissionais" element={<Profissionais />} />
       <Route path="/profissionais/cadastro-de-profissionais" element={<Cadastro />} />
+      <Route path="/codeValidationRequest" element={<CodeValidationRequest />} />
+      <Route path="/newPassword" element={<NewPassword />} />
 
       {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>

@@ -8,7 +8,7 @@ import InputText from '../../../components/inpuText';
 import logoLogin from '../../../assets/images/logos/logoLogin.svg';
 import SimpleButton from '../../../components/simpleButton';
 
-export default function PasswordResetRequest() {
+export default function CodeValidationRequest() {
   const navigate = useNavigate();
 
   const {
@@ -30,22 +30,21 @@ export default function PasswordResetRequest() {
       <S.LeftPanel>
         <S.LeftContent>
           <S.FormWrapper onSubmit={() => handleSubmit(onSubmit)}>
-            <S.Title>Redefinição de senha</S.Title>
+            <S.Title>Verificação de segurança</S.Title>
 
-            <S.Description>Digite seu e-mail de acesso para redefinir sua senha</S.Description>
+            <S.Description>Insira abaixo os números enviados para verificação em email@exemplo.com </S.Description>
 
             <Controller
               name="email"
               control={control}
               rules={{
-                required: 'E-mail é obrigatório',
-                validate: (value) => /\S+@\S+\.\S+/.test(value) || 'E-mail inválido',
+                required: 'Código é obrigatório',
+                validate: (value) => /^[0-9]{4}$/.test(value) || 'Código inválido',
               }}
               render={({ field: { value, onChange, onBlur } }) => (
                 <InputText
-                  label="E-mail"
-                  placeholder="Digite seu e-mail"
-                  type="email"
+                  label="Código"
+                  type="code"
                   value={value}
                   onChange={(text) => onChange(text)}
                   onBlur={onBlur}
@@ -57,20 +56,14 @@ export default function PasswordResetRequest() {
 
             <SimpleButton
               width="411px"
-              text="Enviar instruções"
-              onPress={() => navigate('/codeValidationRequest')}
+              text="Validar código"
+              onPress={() => navigate('/newPassword')}
               colorButton={theme.colors.primary}
               margin="32px 0 16px 0"
             />
 
-            <SimpleButton
-              width="411px"
-              text="Voltar para Login"
-              onPress={() => navigate('/')}
-              colorButton={theme.colors.background}
-              fontColor={theme.colors.primary}
-              borderColor={theme.colors.lightGray}
-            />
+            <S.Description>O token expira em 05:00</S.Description>
+            <S.CodeResend onClick={() => navigate('/passwordResetRequest')}>Reenviar código</S.CodeResend>
           </S.FormWrapper>
         </S.LeftContent>
       </S.LeftPanel>

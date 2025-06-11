@@ -51,13 +51,12 @@ export const ErrorText = styled.span`
   margin-bottom: 12px;
 `;
 
-export const ForgotPassword = styled.div`
+export const CodeResend = styled.div`
   font-size: 14px;
   color: ${({ theme }) => theme.colors.primary};
-  align-self: flex-end;
-  margin: 32px 0;
   text-decoration: underline;
   text-underline-offset: 4px;
+  margin: 32px 0;
 `;
 
 export const RightPanel = styled.div`

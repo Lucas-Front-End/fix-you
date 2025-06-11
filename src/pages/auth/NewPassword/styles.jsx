@@ -1,4 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 export const PageContainer = styled.div`
   display: flex;
@@ -91,3 +94,27 @@ export const Tagline = styled.p`
   text-align: center;
   max-width: 200px;
 `;
+
+export const PasswordChecklistWrapper = styled.div`
+  width: 100%;
+  margin-bottom: 16px;
+  margin-top: 32px;
+`;
+
+export const PasswordChecklistItem = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+`;
+
+export const PasswordChecklistText = styled.span`
+  font-size: 16px;
+`;
+
+export function PasswordCheckIcon({ valid }) {
+  return valid ? (
+    <CheckCircleIcon style={{ color: '#27ae60', marginRight: 8 }} />
+  ) : (
+    <RadioButtonUncheckedIcon style={{ color: '#d3d3d3', marginRight: 8 }} />
+  );
+}

@@ -54,3 +54,26 @@ export function isValidEmail(email) {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email.toLowerCase());
 }
+
+export function isValidCode(code) {
+  if (!code) return false;
+
+  const regex = /^[0-9]{4}$/;
+  return regex.test(code);
+}
+
+export function passwordLengthValid(password) {
+  return password.length >= 8;
+}
+
+export function passwordUppercaseValid(password) {
+  return /[A-Z]/.test(password);
+}
+
+export function passwordLowercaseValid(password) {
+  return /[a-z]/.test(password);
+}
+
+export function passwordSpecialCharValid(password) {
+  return /[^A-Za-z0-9]/.test(password);
+}

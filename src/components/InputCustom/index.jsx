@@ -44,7 +44,7 @@ export default function InputCustom({
         control={control}
         name={name}
         rules={{
-          required: `Obrigatório`,
+          required: 'Obrigatório',
           validate: validators[type],
         }}
         render={({ field: { onChange, onBlur, value } }) =>
@@ -74,7 +74,17 @@ export default function InputCustom({
               type={type === 'date' ? 'text' : type}
               placeholder={placeholder}
               value={value || ''}
-              onChange={(e) => onChange(getFormattedValue(e.target.value))}
+              onChange={(e) => {
+                let inputValue = e.target.value;
+                if (type === 'cpf' || type === 'cnpj' || type === 'date') {
+                  const raw = inputValue.replace(/\D/g, '');
+                  if (type === 'cpf') inputValue = raw.slice(0, 11);
+                  if (type === 'cnpj') inputValue = raw.slice(0, 14);
+                  if (type === 'date') inputValue = raw.slice(0, 8);
+                }
+
+                onChange(getFormattedValue(inputValue));
+              }}
               onBlur={onBlur}
               hasError={!!errorMessage}
               focused={focused.toString()}

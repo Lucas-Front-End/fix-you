@@ -1,5 +1,4 @@
 import { useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
 import BaseLayout from '../../../layouts/index';
 import InputCustom from '../../../components/InputCustom';
 import PrimaryButton from '../../../components/PrimaryButton';
@@ -12,7 +11,6 @@ export default function Cadastro() {
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const navigate = useNavigate();
 
   const onSubmit = (data) => {
     console.log('Form Data:', data);
@@ -88,7 +86,7 @@ export default function Cadastro() {
             </S.Grid>
             <CheckboxCustom
               name="perfis"
-              label="Perfil na plataforma"
+              label="Perfil de permissões"
               control={control}
               required
               errorMessage={errors.perfis?.message}
@@ -101,12 +99,12 @@ export default function Cadastro() {
 
             <S.Actions>
               <PrimaryButton
-                bg={'#ffffff'}
+                bg="#ffffff"
                 width={102}
-                border={'1px solid #D7D7D9'}
-                color={'#024959'}
-                hoverBg={'#024959'}
-                hoverColor={'#ffffff'}
+                border="1px solid #D7D7D9"
+                color="#024959"
+                hoverBg="#024959"
+                hoverColor="#ffffff"
               >
                 Cancelar
               </PrimaryButton>

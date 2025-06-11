@@ -1,5 +1,11 @@
 import styled from 'styled-components';
 
+const getBorderColor = ({ hasError, focused }) => {
+  if (hasError) return '#B71C1C';
+  if (focused) return '#00777D';
+  return '#9ca3af';
+};
+
 export const Container = styled.div`
   width: 100%;
   margin: ${({ margin }) => margin || 0};
@@ -20,7 +26,7 @@ export const StyledInput = styled.input`
   width: 100%;
   height: 56px;
   border: none;
-  border-bottom: 2px solid ${({ hasError, focused }) => (hasError ? '#B71C1C' : focused ? '#00777D' : '#9ca3af')};
+  border-bottom: 2px solid ${getBorderColor};
   background-color: transparent;
   outline: none;
   padding: 0 8px;
@@ -31,7 +37,8 @@ export const StyledInput = styled.input`
   letter-spacing: 0px;
   vertical-align: middle;
   color: #9e9e9e;
-  &:placeholder {
+
+  &::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
@@ -46,7 +53,7 @@ export const StyledSelect = styled.select`
   height: 56px;
   padding: 0px 8px;
   border: none;
-  border-bottom: 2px solid ${({ hasError, focused }) => (hasError ? '#B71C1C' : focused ? '#00777D' : '#9ca3af')};
+  border-bottom: 2px solid ${getBorderColor};
   background-color: transparent;
   outline: none;
   box-sizing: border-box;
@@ -56,7 +63,8 @@ export const StyledSelect = styled.select`
   letter-spacing: 0px;
   vertical-align: middle;
   color: #9e9e9e;
-  &:placeholder {
+
+  &::placeholder {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;

@@ -5,16 +5,26 @@ export const Container = styled.div`
 `;
 
 export const Label = styled.label`
+  display: block;
+  font-weight: 400;
   font-size: 14px;
-  color: #111827;
+  line-height: 150%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #212121;
   margin-bottom: 8px;
-  display: inline-block;
+  text-align: left;
 `;
 
 export const ErrorText = styled.p`
-  color: #dc2626;
+  font-weight: 400;
   font-size: 12px;
-  margin-top: 6px;
+  line-height: 150%;
+  letter-spacing: 0px;
+  vertical-align: middle;
+  color: #b71c1c;
+  text-align: left;
+  margin: 8px 0 0;
 `;
 
 export const Group = styled.div`
@@ -26,10 +36,13 @@ export const Group = styled.div`
 export const CheckboxLabel = styled.label`
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   cursor: pointer;
+  font-weight: 400;
   font-size: 14px;
-  color: #374151;
+  line-height: 150%;
+  letter-spacing: 0%;
+  color: #424242;
 `;
 
 export const Checkbox = styled.input`

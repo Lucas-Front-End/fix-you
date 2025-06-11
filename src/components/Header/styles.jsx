@@ -50,7 +50,7 @@ export const ContainerUser = styled.div`
   align-items: flex-end;
   flex-direction: column;
   color: #fcfcfc;
-  margin-right:8px;
+  margin-right: 8px;
 
   span.name {
     font-weight: 700;

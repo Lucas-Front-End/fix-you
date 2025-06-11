@@ -24,6 +24,9 @@ module.exports = {
   plugins: ['react', 'react-hooks', 'jsx-a11y', 'import'],
   rules: {
     'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/jsx-props-no-spreading': 'off',
+    'import/prefer-default-export': 'off',
     'import/extensions': [
       'error',
       'ignorePackages',
@@ -33,6 +36,7 @@ module.exports = {
       },
     ],
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     indent: ['error', 2],

@@ -1,5 +1,4 @@
-// src/components/inpuText/InputText.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import 'material-symbols/outlined.css';
 import { formatCPF, formatCNPJ } from '../../utils/masks';
@@ -9,28 +8,27 @@ import * as S from './styles';
 export default function InputText({
   label,
   placeholder,
-  width = '363px',
-  type = 'text',
-  maskType = null,
-  validateType = null,
+  width,
+  type,
+  maskType,
+  validateType,
   value: propValue,
   onChange: propOnChange,
-  status = 'default',
+  status,
   ...rest
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [internalValue, setInternalValue] = useState('');
   const isPassword = type === 'password';
 
-  const applyMask = (digits) => {
-    if (maskType === 'cpf') {
-      return formatCPF(digits);
-    }
-    if (maskType === 'cnpj') {
-      return formatCNPJ(digits);
-    }
-    return digits;
-  };
+  const applyMask = useCallback(
+    (digits) => {
+      if (maskType === 'cpf') return formatCPF(digits);
+      if (maskType === 'cnpj') return formatCNPJ(digits);
+      return digits;
+    },
+    [maskType]
+  );
 
   const getOnlyDigits = (str) => str.replace(/\D/g, '');
 
@@ -44,7 +42,7 @@ export default function InputText({
         setInternalValue(propValue);
       }
     }
-  }, [propValue, maskType]);
+  }, [propValue, maskType, applyMask]);
 
   const handleChange = (e) => {
     const raw = e.target.value;
@@ -52,23 +50,22 @@ export default function InputText({
       const onlyDigits = getOnlyDigits(raw);
       const formatted = applyMask(onlyDigits);
       setInternalValue(formatted);
-      if (propOnChange) {
-        propOnChange(onlyDigits);
-      }
+      if (propOnChange) propOnChange(onlyDigits);
     } else {
       setInternalValue(raw);
-      if (propOnChange) {
-        propOnChange(raw);
-      }
+      if (propOnChange) propOnChange(raw);
     }
   };
 
   const handleBlur = () => {
     if (validateType === 'cpf' && !isValidCpf(internalValue)) {
+      console.warn('CPF inválido');
     }
     if (validateType === 'cnpj' && !isValidCnpj(internalValue)) {
+      console.warn('CNPJ inválido');
     }
     if (validateType === 'email' && !isValidEmail(internalValue)) {
+      console.warn('Email inválido');
     }
   };
 
@@ -108,4 +105,15 @@ InputText.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
   status: PropTypes.oneOf(['default', 'error']),
+};
+
+InputText.defaultProps = {
+  placeholder: '',
+  width: '363px',
+  type: 'text',
+  maskType: null,
+  validateType: null,
+  value: '',
+  onChange: null,
+  status: 'default',
 };
